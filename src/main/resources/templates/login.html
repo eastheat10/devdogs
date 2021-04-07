@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
+    <link rel="stylesheet" th:href="@{/css/loginForm.css}">
+</head>
+<body>
+<div class="login_form">
+    <form th:object="${memberDto}" method="post"><br>
+        <a th:href="@{/}"><img th:src="@{/image/logo0.png}"></a>
+        <input class="num" type="text" th:field="*{studentId}" placeholder="학번"><br><br><br>
+        <input class="pw" type="password" th:field="*{password}" placeholder="비밀번호"><br><br><br><br>
+        <a th:href="@{/index}">
+            <button type="submit">로 그 인</button>
+        </a>
+        <a th:href="@{/signup}">
+            <button type="button" onclick="location.href='join.html' ">회 원 가 입</button>
+        </a>
+        <h3 th:text="${message}"></h3>
+    </form>
+</div>
+
+
+
+<script src="loginForm.js"></script>
+</body>
+</html>

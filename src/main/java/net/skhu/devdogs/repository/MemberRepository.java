@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
-    public Member findByStudentId(int studentId);
+    public Member findByStudentId(String studentId);
 
     public Member findByName(String name);
+
+    public int countByStudentId(String studentId);
 
 }

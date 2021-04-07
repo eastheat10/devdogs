@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class Member extends BaseEntity {
     private Long id;
 
     @Column(name = "student_id")
-    private int studentId;  // 학번
+    private String studentId;  // 학번
     private String password;
     private String name;
     private String email;
@@ -28,6 +29,7 @@ public class Member extends BaseEntity {
     private String phoneNumber;
 
     @Column(name = "join_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate joinDate; // 동아리 가입일
 
     @Enumerated(EnumType.STRING)
@@ -35,7 +37,7 @@ public class Member extends BaseEntity {
     private MemberRole memberRole;
 
     @Builder
-    public Member(String password, String name, String email, String phoneNumber, int studentId, LocalDate joinDate) {
+    public Member(String password, String name, String email, String phoneNumber, String studentId, LocalDate joinDate) {
         this.password = password;
         this.name = name;
         this.email = email;
@@ -48,10 +50,6 @@ public class Member extends BaseEntity {
         this.password = password;
         this.email = email;
         this.phoneNumber = phoneNumber;
-    }
-
-    public void encryptPassword(String encryptPassword) {
-        password = encryptPassword;
     }
 
 }

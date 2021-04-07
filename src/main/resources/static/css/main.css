@@ -1,0 +1,129 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.menu {
+    height: 130px;
+    background: #d86c6c;
+    text-align: center;
+}
+
+nav ul li {
+    margin-top: 60px;
+    display: inline-block;
+}
+
+nav ul li a {
+    position: relative;
+    color: white;
+    font-size: 16pt;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.nav01 {
+    padding-right: 60px;
+}
+
+.nav02 {
+    padding-right: 60px;
+}
+
+.nav03 {
+    padding-right: 60px;
+}
+
+.logo {
+    width: 220px;
+    height: 100px;
+    position: absolute;
+    top: 17px;
+    left: 12%;
+}
+
+.img01 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 16%;
+}
+
+.img02 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 12%;
+}
+
+.menu ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width .3s;
+}
+
+.menu ul li a:hover:after {
+    width: 100%;
+    transition: width .3s;
+} /*처음부터 여기까지가 메뉴바 css*/
+
+.school {
+    display: block;
+    margin: 0px auto;
+} /*사진 가운데 정렬*/
+
+.txt {
+    text-align: center;
+}
+
+button {
+    display: block;
+    margin: 0px auto;
+    font-weight: 600;
+    margin-top: 30px;
+    background:#D86C6C;
+    color:white;
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:1.6em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+}
+
+button:hover {
+    background:white;
+    color:#D86C6C;
+}
+
+button:before,button:after {
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #D86C6C;
+    transition:400ms ease all;
+}
+
+button:after {
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+
+button:hover:before,button:hover:after {
+    width:100%;
+    transition:800ms ease all;
+}

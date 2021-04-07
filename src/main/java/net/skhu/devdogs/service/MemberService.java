@@ -31,15 +31,15 @@ public class MemberService {
     // 회원가입
     @Transactional
     public Long join(MemberDto memberDto) throws NoSuchAlgorithmException {
+        memberDto.passwordEncoding(memberDto.getPassword());
         Member member = memberDto.toEntity();
         Member findMember = memberRepository.findByStudentId(member.getStudentId());
         if (findMember == null) {
             memberRepository.save(member);
+            return member.getId();
         } else{
             return null;
         }
-
-        return member.getId();
     }
 
     // 로그인
@@ -50,15 +50,28 @@ public class MemberService {
             return false;
         }
         if (member.getPassword().equals(dto.getPassword())) {
-            session.setAttribute("MEMBERDTO", dto);
+            session.setAttribute("member", dto);
             return true;
         }
         return false;
     }
 
+    public MemberDto loginCheck(MemberDto memberDto) throws Exception {
+        Member findMember = memberRepository.findByStudentId(memberDto.getStudentId());
+        memberDto.passwordEncoding(memberDto.getPassword());
+
+        if (findMember != null) {
+            MemberDto findMemberDto = new MemberDto(findMember);
+            if (memberDto.getPassword().equals(findMemberDto.getPassword())) {
+                return findMemberDto;
+            }
+        }
+        return null;
+    }
+
     // 로그아웃
     public void logout(HttpSession session) {
-        session.removeAttribute("MEMBER");
+        session.removeAttribute("member");
     }
 
     public List<Member> findAll() {
@@ -71,7 +84,7 @@ public class MemberService {
         return member;
     }
 
-    public Member findByStudentId(int studentId) {
+    public Member findByStudentId(String studentId) {
         Member member = memberRepository.findByStudentId(studentId);
         return member;
     }
@@ -88,4 +101,10 @@ public class MemberService {
         member.memberUpdate(updateMember.getPassword(), updateMember.getEmail(), updateMember.getPhoneNumber());
     }
 
+    public int userIdCheck(String studentId) {
+
+        int count = memberRepository.countByStudentId(studentId);
+
+        return count;
+    }
 }

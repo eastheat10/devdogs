@@ -35,4 +35,12 @@ public class PostDto {
         this.postType = postType;
     }
 
+    public PostDto(Post post) {
+        id = post.getId();
+        writer = post.getWriter();
+        title = post.getTitle();
+        content = post.getContent();
+        postType = getPostType();
+    }
+
 }

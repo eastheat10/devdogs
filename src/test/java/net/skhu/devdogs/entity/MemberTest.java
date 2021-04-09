@@ -24,7 +24,7 @@ public class MemberTest {
     public Member createMember() {
         Member member = Member.builder()
                 .name("윤동열")
-                .studentId(201733027)
+                .studentId("201733027")
                 .password("1234")
                 .phoneNumber("01051791813")
                 .joinDate(LocalDate.of(2021, 3, 2))

@@ -69,19 +69,10 @@ class MemberServiceTest {
 
     }
 
-    @Test
-    public void login() throws NoSuchAlgorithmException {
-        MemberDto dto = createMemberDto();
-        boolean login = memberService.login(session, dto);
-
-        System.out.println("login = " + login);
-
-    }
-
     public Member createMember() {
         Member member = Member.builder()
                 .name("윤동열")
-                .studentId(201733027)
+                .studentId("201733027")
                 .password("1234")
                 .phoneNumber("01051791813")
                 .joinDate(LocalDate.of(2021, 3, 2))
@@ -94,7 +85,7 @@ class MemberServiceTest {
         MemberDto dto = MemberDto.builder()
                 .name("윤동열")
                 .email("abs@gmail.com")
-                .studentId(201733027)
+                .studentId("201733027")
                 .password("hello")
                 .joinDate(LocalDate.of(2018, 3, 2))
                 .build();

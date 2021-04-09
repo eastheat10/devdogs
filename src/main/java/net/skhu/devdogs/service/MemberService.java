@@ -7,7 +7,6 @@ import net.skhu.devdogs.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -43,20 +42,7 @@ public class MemberService {
     }
 
     // 로그인
-    public boolean login(HttpSession session, MemberDto dto) throws NoSuchAlgorithmException {
-        Member member = memberRepository.findByStudentId(dto.getStudentId());
-        // MemberDto dto = new MemberDto(member);
-        if (member == null) {
-            return false;
-        }
-        if (member.getPassword().equals(dto.getPassword())) {
-            session.setAttribute("member", dto);
-            return true;
-        }
-        return false;
-    }
-
-    public MemberDto loginCheck(MemberDto memberDto) throws Exception {
+    public MemberDto login(MemberDto memberDto) throws Exception {
         Member findMember = memberRepository.findByStudentId(memberDto.getStudentId());
         memberDto.passwordEncoding(memberDto.getPassword());
 
@@ -67,11 +53,6 @@ public class MemberService {
             }
         }
         return null;
-    }
-
-    // 로그아웃
-    public void logout(HttpSession session) {
-        session.removeAttribute("member");
     }
 
     public List<Member> findAll() {
@@ -101,8 +82,10 @@ public class MemberService {
         member.memberUpdate(updateMember.getPassword(), updateMember.getEmail(), updateMember.getPhoneNumber());
     }
 
-    public int userIdCheck(String studentId) {
-
+    public int studentIdCheck(String studentId) {
+        if(studentId.length() < 7){
+            return 1;
+        }
         int count = memberRepository.countByStudentId(studentId);
 
         return count;

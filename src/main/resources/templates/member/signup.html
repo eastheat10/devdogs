@@ -3,24 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>개발자들</title>
-    <link rel="stylesheet" th:href="@{/css/join.css}">
+    <link rel="stylesheet" th:href="@{css/join.css}">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="menu">
-    <a href="@{index}"><img class="logo" th:src="@{/image/devdogs_logo.png}"></a>
+    <a th:href="@{/}"><img class="logo" th:src="@{image/devdogs_logo.png}"></a>
     <ul>
         <li class="nav01"><a href="#">자유게시판</a></li>
         <li class="nav02"><a href="#">프로젝트</a></li>
         <li class="nav03"><a href="#">활동내역</a></li>
         <li class="nav04"><a href="#">회원명단</a></li>
     </ul>
-    <a th:href="@{/myPage}"><img class="img01" th:src="@{/image/mypage_icon.png}"></a>
-    <a th:href="@{/signin}"><img class="img02" th:src="@{/image/login_icon.png}"></a>
+    <a th:href="@{/myPage}"><img class="img01" th:src="@{image/mypage_icon.png}"></a>
+    <a th:href="@{/signin}"><img class="img02" th:src="@{image/login_icon.png}"></a>
 </nav>
 
 <div class="none_center">
     <h3>회 원 가 입</h3>
     <hr>
+
     <div class="div">
         <form class="form" th:object="${memberDto}" method="post">
             <table>
@@ -31,21 +33,16 @@
                     </td>
                     <td class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
                 </tr>
-                <tr>
-                    <td></td>
-
-                </tr>
 
                 <tr>
                     <td class="txt">학번</td>
                     <td>
-                        <input class="box" id="user_id" type="text" th:field="*{studentId}" placeholder="학번을 입력하세요">
+                        <input class="box" type="text" th:field="*{studentId}" placeholder="학번을 입력하세요">
                     </td>
                     <td class="err" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"/>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td class="check_font" id="id_check" />
+                    <button class="idChk" type="button" id="idChk" onclick="fn_idChk();">중복확인</button>
                 </tr>
 
                 <tr>
@@ -59,11 +56,17 @@
                 <tr>
                     <td class="txt">비밀번호 확인</td>
                     <td>
-                        <input class="box" type="password" placeholder="비밀번호를 확인하세요">
+                        <input class="box" type="password" id="passwordCheck" placeholder="비밀번호를 확인하세요">
                     </td>
-                    <td>
-                        <input class="ok" type="submit" value="확인"></td>
                 </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <span id="chkNotice" size="2"></span>
+                    </td>
+                </tr>
+
                 <tr>
                     <td class="txt">동아리 가입일</td>
                     <td>
@@ -90,27 +93,37 @@
         </form>
     </div>
 </div>
-<script src="join.js">
-    $("#user_id").blur(function() {
-        // id = "id_reg" / name = "userId"
-        var user_id = $('#user_id').val();
+<script type="text/javascript">
+    function fn_idChk(){
         $.ajax({
-            url : '${pageContext.request.contextPath}/user/idCheck?studentId='+ user_id,
-            type : 'get',
+            url : "/idCheck",
+            type : "post",
+            dataType : "json",
+            data : {"studentId" : $("#studentId").val()},
             success : function(data) {
-                console.log("1 = 중복o / 0 = 중복x : "+ data);
-
                 if (data != 0) {
-                    // 1 : 아이디가 중복되는 문구
-                    $("#id_check").text("사용중인 아이디입니다");
-                    $("#id_check").css("color", "red");
-                    $("#reg_submit").attr("disabled", true);
+                    // 중복이면
+                    alert("사용할 수 없는 아이디입니다.");
                 }
                 else {
-                    alert("사용가능한 아이디입니다.")
+                    alert("사용가능한 아이디입니다.");
                 }
-            }, error : function() {
-                console.log("실패");
+            }
+        });
+    };
+
+    $(function fn_pwChk(){
+        $('#passwordCheck').keyup(function(){
+            $('#userPw').keyup(function(){
+                $('#chkNotice').html('');
+            });
+
+            if($('#password').val() != $('#passwordCheck').val()){
+                $('#chkNotice').html('비밀번호 일치하지 않음<br><br>');
+                $('#chkNotice').attr('color', '#f82a2aa3');
+            } else{
+                $('#chkNotice').html('비밀번호 일치함<br><br>');
+                $('#chkNotice').attr('color', '#199894b3');
             }
         });
     });

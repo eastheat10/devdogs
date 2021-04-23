@@ -21,9 +21,9 @@
         <img class="school" th:src="@{/image/skhu.png}">
         <div class="txt" th:text="'Welcome ' + ${memberDto == null ? 'Guest' : memberDto.getName()}"></div>
         <div th:if="${memberDto == null}">
-            <a th:href="@{/signin}"><button type="button" >LOGIN</button></a>
+            <a th:href="@{/login}"><button type="button" >LOGIN</button></a>
         </div>
        
-        <script src="main.js"></script>
+<!--        <script src="main.js"></script>-->
     </body>
 </html>

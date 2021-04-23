@@ -10,9 +10,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 
 @Getter
@@ -72,20 +69,8 @@ public class MemberDto {
         return member;
     }
 
-    public static String encrypt(String password) throws NoSuchAlgorithmException {
-        MessageDigest md = MessageDigest.getInstance("SHA-256");
-        byte[] passByte = password.getBytes(StandardCharsets.UTF_8);
-        md.reset();
-        byte[] digested = md.digest(passByte);
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < digested.length; i++) {
-            sb.append(Integer.toHexString(0xff & digested[i]));
-        }
-        return sb.toString();
-    }
-
-    public void passwordEncoding(String password) throws NoSuchAlgorithmException {
-        String encodingPassword = encrypt(password);
+    public void passwordEncoding(String encodingPassword) {
         this.password = encodingPassword;
     }
+
 }

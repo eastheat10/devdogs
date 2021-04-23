@@ -12,36 +12,40 @@ import javax.persistence.*;
 @Getter
 public class Post extends BaseEntity {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "post_id")
     private Long id;
 
-    private String writer;
+    // 작성자
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     private String title;
 
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "post_type")
-    private PostType postType;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "post_category_id")
+    private PostCategory postCategory;
 
     @Builder
-    public Post(String writer, String title, String content, PostType postType, Member member) {
-        this.writer = writer;
+    public Post(String title, String content, PostCategory postCategory, Member member) {
         this.title = title;
         this.content = content;
-        this.postType = postType;
+        this.postCategory = postCategory;
         this.member = member;
     }
 
-    public void postUpdate(String title, String content) {
+    public void postUpdate(String title, String content, PostCategory postCategory) {
         this.title = title;
         this.content = content;
+        this.postCategory = postCategory;
+    }
+
+    public void setWriter(Member member) {
+        this.member = member;
     }
 
 }

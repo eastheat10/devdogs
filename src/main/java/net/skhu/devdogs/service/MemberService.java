@@ -7,7 +7,10 @@ import net.skhu.devdogs.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +33,7 @@ public class MemberService {
     // 회원가입
     @Transactional
     public Long join(MemberDto memberDto) throws NoSuchAlgorithmException {
-        memberDto.passwordEncoding(memberDto.getPassword());
+        memberDto.passwordEncoding(encrypt(memberDto.getPassword()));
         Member member = memberDto.toEntity();
         Member findMember = memberRepository.findByStudentId(member.getStudentId());
         if (findMember == null) {
@@ -44,7 +47,7 @@ public class MemberService {
     // 로그인
     public MemberDto login(MemberDto memberDto) throws Exception {
         Member findMember = memberRepository.findByStudentId(memberDto.getStudentId());
-        memberDto.passwordEncoding(memberDto.getPassword());
+        memberDto.passwordEncoding(encrypt(memberDto.getPassword()));
 
         if (findMember != null) {
             MemberDto findMemberDto = new MemberDto(findMember);
@@ -55,24 +58,32 @@ public class MemberService {
         return null;
     }
 
-    public List<Member> findAll() {
+    public List<MemberDto> findAll() {
         List<Member> members = memberRepository.findAll();
-        return members;
+        List<MemberDto> memberDtoList = new ArrayList<>();
+        for (Member member : members) {
+            MemberDto dto = new MemberDto(member);
+            memberDtoList.add(dto);
+        }
+        return memberDtoList;
     }
 
-    public Member findById(Long id) {
+    public MemberDto findById(Long id) {
         Member member = memberRepository.findById(id).get();
-        return member;
+        MemberDto memberDto = new MemberDto(member);
+        return memberDto;
     }
 
-    public Member findByStudentId(String studentId) {
+    public MemberDto findByStudentId(String studentId) {
         Member member = memberRepository.findByStudentId(studentId);
-        return member;
+        MemberDto memberDto = new MemberDto(member);
+        return memberDto;
     }
 
-    public Member findByName(String name) {
+    public MemberDto findByName(String name) {
         Member member = memberRepository.findByName(name);
-        return member;
+        MemberDto memberDto = new MemberDto(member);
+        return memberDto;
     }
 
     @Transactional
@@ -90,4 +101,17 @@ public class MemberService {
 
         return count;
     }
+
+    public static String encrypt(String password) throws NoSuchAlgorithmException {
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
+        byte[] passByte = password.getBytes(StandardCharsets.UTF_8);
+        md.reset();
+        byte[] digested = md.digest(passByte);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < digested.length; i++) {
+            sb.append(Integer.toHexString(0xff & digested[i]));
+        }
+        return sb.toString();
+    }
+
 }

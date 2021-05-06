@@ -67,8 +67,8 @@ public class PostService {
     }
 
     @Transactional
-    public void delete(PostDto postDto) {
-        Post post = postRepository.findById(postDto.getId()).get();
+    public void delete(Long postId) {
+        Post post = postRepository.findById(postId).get();
         postRepository.delete(post);
     }
 

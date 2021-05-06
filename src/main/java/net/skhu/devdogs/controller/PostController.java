@@ -9,8 +9,9 @@ import net.skhu.devdogs.service.PostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -35,13 +36,15 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public String write(Model model, PostDto postDto, HttpSession session) {
-        MemberDto memberDto = (MemberDto)session.getAttribute("member");
+    public String write(Model model, PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        MemberDto memberDto = (MemberDto)request.getSession().getAttribute("member");
         postService.write(postDto, memberDto);
-        return "redirect:/";
+        String categoryName = postCategoryService.findCategoryName(postDto.getPostCategoryId());
+        redirectAttributes.addAttribute("postCategoryName", categoryName);
+        return "redirect:/list/{postCategoryName}";
     }
 
-    @GetMapping("/devdogs/{id}")
+    @GetMapping("/detail/{id}")
     public String postDetail(Model model, @PathVariable Long id) {
         PostDto findPostDto = postService.findById(id);
         model.addAttribute("post", findPostDto);
@@ -53,6 +56,22 @@ public class PostController {
         PostDto postDto = postService.findById(id);
         model.addAttribute("postDto", postDto);
         return "/edit";
+    }
+
+    @PostMapping("/update/{id}")
+    public String postUpdate(Model model, @ModelAttribute PostDto postDto, RedirectAttributes redirectAttributes) {
+        Long updateId = postService.update(postDto);
+        redirectAttributes.addAttribute("postId", updateId);
+        return "redirect:/detail/{postId}";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long postId, RedirectAttributes redirectAttributes) {
+        PostDto postDto = postService.findById(postId);
+        String categoryName = postCategoryService.findCategoryName(postDto.getId());
+        redirectAttributes.addAttribute("categoryName", categoryName);
+        postService.delete(postId);
+        return "redirect:/list/{categoryName}";
     }
 
 }

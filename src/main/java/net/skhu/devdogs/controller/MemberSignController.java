@@ -24,7 +24,8 @@ public class MemberSignController {
     }
 
     @PostMapping("/signup")
-    public String signUpPost(@Valid @ModelAttribute MemberDto memberDto, BindingResult bindingResult) throws Exception {
+    public String signUpPost(HttpServletRequest request, @Valid @ModelAttribute MemberDto memberDto, BindingResult bindingResult) throws Exception {
+        System.out.println(request.getRequestURL());
         if (bindingResult.hasErrors()) {
             return "/member/signup";
         } else {

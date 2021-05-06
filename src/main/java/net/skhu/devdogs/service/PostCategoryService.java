@@ -15,4 +15,10 @@ public class PostCategoryService {
         PostCategory findPostCategory = postCategoryRepository.findByName(name);
         return findPostCategory;
     }
+
+    public String findCategoryName(Long categoryId) {
+        PostCategory postCategory = postCategoryRepository.findById(categoryId).get();
+        return postCategory.getName();
+    }
+
 }

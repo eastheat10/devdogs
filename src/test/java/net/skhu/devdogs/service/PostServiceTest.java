@@ -22,9 +22,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class PostServiceTest {
 
     @Autowired
-    PostRepository postRepository;
-
-    @Autowired
     PostService postService;
 
     public Member createMember() {
@@ -35,29 +32,18 @@ class PostServiceTest {
                 .phoneNumber("01051791813")
                 .joinDate(LocalDate.of(2021, 3, 2))
                 .build();
-
         return member;
     }
 
     @Test
-    public void write() {
-        MemberDto md = MemberDto.builder()
-                .name("수달")
-                .studentId("201732038") // 이 프로퍼티가 db에 존재해야 함
-                .password("12341234")
-                .email("ss@naver.com")
-                .joinDate(LocalDate.now())
-                .build();
-        PostDto pd = PostDto.builder()
-                .title("title1")
-                .content("content1")
-                .postCategoryId(1L)
-                .build();
+    public void write() throws Exception {
+        // given
+        Member member = createMember();
 
-        Long writeId = postService.write(pd, md);
-        System.out.println("writeId = " + writeId);
+        // when
 
-        PostDto findPostDto = postService.findById(writeId);
-        assertThat(findPostDto.getId()).isEqualTo(writeId);
-    }
+        // then
+
+     }
+
 }

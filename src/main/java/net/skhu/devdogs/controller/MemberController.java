@@ -18,16 +18,19 @@ public class MemberController {
 
     @GetMapping("/list")
     public String memberList(Model model) {
-        List<MemberDto> memberDtoList = memberService.findAll();
-        model.addAttribute("membersDtoList", memberDtoList);
-        return "/list";
+        List<MemberDto> members = memberService.findAll();
+        members.sort((m1, m2)->{
+            return Integer.parseInt(m1.getStudentId()) - Integer.parseInt(m2.getStudentId());
+        });
+        model.addAttribute("members", members);
+        return "/member/memberList";
     }
 
     @GetMapping("/mypage/{studentId}")
     public String mypage(Model model, @PathVariable String studentId) {
         MemberDto findMemberDto = memberService.findByStudentId(studentId);
         model.addAttribute("memberDto", findMemberDto);
-        return "/mypage";
+        return "/member/mypage";
     }
 
     @PostMapping("mypage/{studentId}")

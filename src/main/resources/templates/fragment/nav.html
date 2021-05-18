@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="ko">
+<nav class="menu">
+    <a th:href="@{/}"><img class="logo" th:src="@{/image/devdogs_logo.png}"></a>
+    <ul>
+        <li class="nav01"><a th:href="@{/post/list/notice}">공지사항</a></li>
+        <li class="nav01"><a th:href="@{/post/list/free}">자유게시판</a></li>
+        <li class="nav02"><a th:href="@{/post/list/project}">프로젝트</a></li>
+        <li class="nav03"><a th:href="@{/post/list/active}">활동내역</a></li>
+        <li class="nav04"><a th:href="@{/member/list}">회원명단</a></li>
+    </ul>
+    <a th:href="@{/mypage}"><img class="img01" th:src="@{/image/mypage_icon.png}"></a>
+    <a th:href="@{/logout}"><img class="img02" th:src="@{/image/login_icon.png}"></a>
+</nav>
+</html>

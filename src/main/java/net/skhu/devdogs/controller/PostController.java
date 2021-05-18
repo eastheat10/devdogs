@@ -25,18 +25,26 @@ public class PostController {
     @GetMapping("/list/{postCategoryName}")
     public String post(Model model, @PathVariable String postCategoryName) {
         PostCategory postCategory = postCategoryService.findByName(postCategoryName);
+        String categoryName = "";
+        switch (postCategory.getName()) {
+            case "free": categoryName = "자유게시판"; break;
+            case "active" :categoryName = "활동내역"; break;
+            case "project" :categoryName = "프로젝트"; break;
+            case "notice" :categoryName = "공지사항"; break;
+        }
         List<PostDto> postDtoList = postService.findByPostCategory(postCategory.getId());
         model.addAttribute("postList", postDtoList);
-        return "/list";
+        model.addAttribute("categoryName", categoryName);
+        return "post/board";
     }
 
     @GetMapping("/write")
     public String write(Model model) {
-        return "/write";
+        return "/post/write";
     }
 
     @PostMapping("/write")
-    public String write(Model model, PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String write(PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         MemberDto memberDto = (MemberDto)request.getSession().getAttribute("member");
         postService.write(postDto, memberDto);
         String categoryName = postCategoryService.findCategoryName(postDto.getPostCategoryId());
@@ -48,14 +56,14 @@ public class PostController {
     public String postDetail(Model model, @PathVariable Long id) {
         PostDto findPostDto = postService.findById(id);
         model.addAttribute("post", findPostDto);
-        return "/detail";
+        return "post/detail";
     }
 
     @GetMapping("/update/{id}")
     public String edit(Model model, @RequestParam Long id) {
         PostDto postDto = postService.findById(id);
         model.addAttribute("postDto", postDto);
-        return "/edit";
+        return "post/edit";
     }
 
     @PostMapping("/update/{id}")

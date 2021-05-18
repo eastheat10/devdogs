@@ -1,5 +1,6 @@
 package net.skhu.devdogs.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,8 @@ public class PostCategory {
     @Column(name = "post_category_name")
     private String name;
 
+    @Builder
+    public PostCategory(String name) {
+        this.name = name;
+    }
 }

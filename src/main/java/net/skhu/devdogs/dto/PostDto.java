@@ -4,6 +4,9 @@ package net.skhu.devdogs.dto;
 import lombok.*;
 import net.skhu.devdogs.entity.Post;
 
+import java.time.LocalDateTime;
+
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
@@ -15,6 +18,10 @@ public class PostDto {
     private String content;
 
     private Long postCategoryId;
+    private String postCategoryName;
+
+    private LocalDateTime createDate;
+    private LocalDateTime modifiedDate;
 
     @Builder
     public PostDto(String writer, String title, String content, Long postCategoryId) {
@@ -30,6 +37,9 @@ public class PostDto {
         title = post.getTitle();
         content = post.getContent();
         postCategoryId = post.getPostCategory().getId();
+        postCategoryName = post.getPostCategory().getName();
+        createDate = post.getCreateTime();
+        modifiedDate = post.getModifiedDate();
     }
 
 }

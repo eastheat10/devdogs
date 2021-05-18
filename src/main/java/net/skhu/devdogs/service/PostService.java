@@ -72,6 +72,23 @@ public class PostService {
         postRepository.delete(post);
     }
 
+    @Transactional
+    public void postInit() {
+        for (long i = 1; i <= 4; i++) {
+            PostCategory postCategory = postCategoryRepository.findById(i).get();
+            for(long j = 1; j <= 20; j++){
+                Post post = Post.builder()
+                        .title("hello " + (char)(j * i) + (char)(j + i))
+                        .content("world" + (char)(j * i) + (char)(j + i))
+                        .member(memberRepository.findById((long)(Math.random() * 5 + 1)).get())
+                        .postCategory(postCategory)
+                        .build();
+                postRepository.save(post);
+            }
+        }
+
+    }
+
     public Post toEntity(PostDto postDto) {
         PostCategory findPostCategory = postCategoryRepository.findById(postDto.getPostCategoryId()).get();
         Post build = Post.builder()

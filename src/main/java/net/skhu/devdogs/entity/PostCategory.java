@@ -19,6 +19,9 @@ public class PostCategory {
     @Column(name = "post_category_name")
     private String name;
 
+    @Column(name = "post_category_ko_name")
+    private String koName;
+
     @Builder
     public PostCategory(String name) {
         this.name = name;

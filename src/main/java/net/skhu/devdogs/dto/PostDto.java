@@ -19,6 +19,7 @@ public class PostDto {
 
     private Long postCategoryId;
     private String postCategoryName;
+    private String postCategoryKoName;
 
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;

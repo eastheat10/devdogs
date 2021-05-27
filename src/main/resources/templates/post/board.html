@@ -38,7 +38,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="post : ${postList}">
+                <tr class="content" th:each="post : ${postList}">
                     <td th:text="${post.id}">번호</td>
                     <td th:text="${post.title}">제목</td>
                     <td th:text="${post.writer}">작성자</td>

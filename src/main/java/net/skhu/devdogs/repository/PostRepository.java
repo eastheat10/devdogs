@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    @Query("select p from Post p where p.postCategory.id = :category_id")
-    public List<Post> findByCategoryId(@Param("category_id") Long id);
+    @Query("select p from Post p where p.postCategory.id = :categoryId order by p.modifiedDate desc")
+    public List<Post> findByCategoryId(@Param("categoryId") Long id);
 
 }

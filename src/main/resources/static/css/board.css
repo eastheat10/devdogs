@@ -137,21 +137,26 @@ td, th {
 
 .number {
     width: 150px;
-    text-align: center
+    text-align: center;
+}
+
+.content {
+    text-align: center;
 }
 
 .title {
     width: 700px;
+    text-align: center;
 }
 
 .writer {
     width: 200px;
-    text-align: center
+    text-align: center;
 }
 
-.date { 
+.date {
     width: 300px;
-    text-align: center
+    text-align: center;
 }
 
 tbody tr:hover {

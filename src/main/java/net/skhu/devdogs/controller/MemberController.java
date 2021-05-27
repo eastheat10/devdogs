@@ -33,7 +33,7 @@ public class MemberController {
         return "/member/mypage";
     }
 
-    @PostMapping("mypage/{studentId}")
+    @PostMapping("/mypage/{studentId}")
     public String mypage(@ModelAttribute MemberDto memberDto, @PathVariable String studentId) {
 
         return "redirect:/";

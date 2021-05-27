@@ -6,6 +6,7 @@ import net.skhu.devdogs.dto.PostDto;
 import net.skhu.devdogs.entity.PostCategory;
 import net.skhu.devdogs.service.PostCategoryService;
 import net.skhu.devdogs.service.PostService;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,17 +40,21 @@ public class PostController {
     }
 
     @GetMapping("/write")
-    public String write(Model model) {
-        return "/post/write";
+    public String write(HttpServletRequest request, Model model, PostDto postDto) {
+        if(request.getSession().getAttribute("member") == null)
+            return "redirect:/login";
+        List<PostCategory> postCategoryList = postCategoryService.findAll();
+        model.addAttribute("categoryList", postCategoryList);
+        return "post/write";
     }
 
     @PostMapping("/write")
-    public String write(PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    public String write(@ModelAttribute PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         MemberDto memberDto = (MemberDto)request.getSession().getAttribute("member");
         postService.write(postDto, memberDto);
         String categoryName = postCategoryService.findCategoryName(postDto.getPostCategoryId());
         redirectAttributes.addAttribute("postCategoryName", categoryName);
-        return "redirect:/list/{postCategoryName}";
+        return "redirect:list/{postCategoryName}";
     }
 
     @GetMapping("/detail/{id}")

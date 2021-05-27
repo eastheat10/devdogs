@@ -26,6 +26,9 @@ public class PostService {
     @Transactional
     public Long write(PostDto postDto, MemberDto memberDto) {
         Member writer = memberRepository.findByStudentId(memberDto.getStudentId());
+        PostCategory postCategory = postCategoryRepository.findById(postDto.getPostCategoryId()).get();
+        postDto.setPostCategoryName(postCategory.getName());
+        postDto.setPostCategoryKoName(postCategory.getKoName());
         Post post = toEntity(postDto);
         post.setWriter(writer);
         Post savePost = postRepository.save(post);

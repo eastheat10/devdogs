@@ -1,36 +1,52 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <title>개발자들</title>
-        <link rel="stylesheet" th:href="@{/css/write.css}">
-        <link rel="stylesheet" href="../../static/css/write.css">
-    </head>
-    <body>
-    <nav th:replace="fragment/nav"></nav>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
 
-        <div class="none_center">
-            <h3>자 유 게 시 판</h3>
-            <hr>
-        </div>
+    <link rel="stylesheet" href="../../static/css/write.css">
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+</head>
+<body>
+<nav th:replace="fragment/nav"></nav>
 
-        <form name=writeform method=post action="write_ok.jsp">
-            <div class="middle">
-                <table>
-                    <tr><td class="name">제목</td><td>&nbsp;<input name="title" size="149" maxlength="200"></td></tr>
-                    <tr><td class="content">내용</td><td>&nbsp;<textarea name="memo" cols="150" rows="15"></textarea></td></tr>
-                    <tr><td class="file">첨부파일</td><td>&nbsp;<input type="file" value="첨부파일"></td></tr>
-                </table>
-            </div>
-            <div class="middle">
-                <input class="button" type=button value="저장" OnClick="javascript:writeCheck();">&nbsp;&nbsp;&nbsp;
-                <input class="button" type=button value="취소" OnClick="javascript:history.back(-1)">
-            </div>
-        </form>
+<div class="none_center">
+    <h3>글 쓰 기</h3>
+    <hr>
+</div>
 
-        <footer th:replace="fragment/footer"></footer>
+<form class="form" th:object="${postDto}" method="post">
+    <div class="middle">
+        <table>
+            <tr><td class="category">카테고리</td>
+                <td>
+                    <select th:name="postCategoryId">
+                        <option th:each="category : ${categoryList}"
+                                th:value="${category.id}"
+                                th:text="${category.koName}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="name">제목</td>
+                <td>&nbsp;<input th:field="*{title}" size="149" maxlength="200"></td>
+            </tr>
+            <tr>
+                <td class="content">내용</td>
+                <td>&nbsp;<textarea th:field="*{content}" cols="150" rows="15"></textarea></td>
+            </tr>
+<!--            <tr><td class="file">첨부파일</td><td>&nbsp;<input type="file" value="첨부파일"></td></tr>-->
+        </table>
+    </div>
+    <div class="middle">
+        <input class="button" type="submit" value="저장" OnClick="javascript:writeCheck();">&nbsp;&nbsp;&nbsp;
+        <input class="button" type="button" value="취소" OnClick="javascript:history.back(-1)">
+    </div>
+</form>
 
-        <script src="../../static/js/write.js"></script>
-        <script th:src="@{js/write.js}"></script>
-    </body>
+<footer th:replace="fragment/footer"></footer>
+
+<script th:src="@{/js/write.js}"></script>
+<script src="../../js/write.js"></script>
+</body>
 </html>

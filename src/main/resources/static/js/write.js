@@ -23,5 +23,5 @@ function writeCheck()
  function query() {
       var ret = confirm("정말로 취소하시겠습니까? 입력하신 내용은 저장되지 않습니다.");
       return ret;
-  }
+  } // 이거 취소 버튼 누르면 그대로임ㅠ
   */

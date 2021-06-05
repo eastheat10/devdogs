@@ -6,7 +6,6 @@ import net.skhu.devdogs.dto.PostDto;
 import net.skhu.devdogs.entity.PostCategory;
 import net.skhu.devdogs.service.PostCategoryService;
 import net.skhu.devdogs.service.PostService;
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -68,14 +67,14 @@ public class PostController {
     public String edit(Model model, @RequestParam Long id) {
         PostDto postDto = postService.findById(id);
         model.addAttribute("postDto", postDto);
-        return "post/edit";
+        return "/post/write";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/update")
     public String postUpdate(Model model, @ModelAttribute PostDto postDto, RedirectAttributes redirectAttributes) {
         Long updateId = postService.update(postDto);
         redirectAttributes.addAttribute("postId", updateId);
-        return "redirect:/detail/{postId}";
+        return "redirect:detail/{postId}";
     }
 
     @PostMapping("/delete/{id}")

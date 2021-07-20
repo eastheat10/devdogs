@@ -1,5 +1,6 @@
 package net.skhu.devdogs.controller;
 
+import net.skhu.devdogs.dto.MemberDto;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class CustomErrorController implements ErrorController {
             }
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "/error/500";
+            }
+            if (request.getSession().getAttribute("member") == null) {
+                return "redirect:/login";
             }
         }
         return "/error/etcError";

@@ -1,8 +1,10 @@
 package net.skhu.devdogs.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.skhu.devdogs.dto.MemberDto;
 import net.skhu.devdogs.dto.PostDto;
+import net.skhu.devdogs.dto.SearchDto;
 import net.skhu.devdogs.entity.PostCategory;
 import net.skhu.devdogs.service.PostCategoryService;
 import net.skhu.devdogs.service.PostService;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("/post")
 @RequiredArgsConstructor
@@ -23,7 +26,11 @@ public class PostController {
     private final PostCategoryService postCategoryService;
 
     @GetMapping("/list/{postCategoryName}")
-    public String post(Model model, @PathVariable String postCategoryName) {
+    public String post(Model model, @PathVariable String postCategoryName, HttpServletRequest request) {
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        if (memberDto != null) {
+            model.addAttribute("memberDto", memberDto);
+        }
         PostCategory postCategory = postCategoryService.findByName(postCategoryName);
         String categoryName = "";
         switch (postCategory.getName()) {
@@ -35,13 +42,19 @@ public class PostController {
         List<PostDto> postDtoList = postService.findByPostCategory(postCategory.getId());
         model.addAttribute("postList", postDtoList);
         model.addAttribute("categoryName", categoryName);
+        model.addAttribute("search", new SearchDto("", ""));
         return "post/board";
     }
 
     @GetMapping("/write")
     public String write(HttpServletRequest request, Model model, PostDto postDto) {
-        if(request.getSession().getAttribute("member") == null)
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        if (memberDto != null) {
+            model.addAttribute("memberDto", memberDto);
+        }
+        else {
             return "redirect:/login";
+        }
         List<PostCategory> postCategoryList = postCategoryService.findAll();
         model.addAttribute("categoryList", postCategoryList);
         return "post/write";
@@ -57,14 +70,22 @@ public class PostController {
     }
 
     @GetMapping("/detail/{id}")
-    public String postDetail(Model model, @PathVariable Long id) {
+    public String postDetail(Model model, @PathVariable Long id, HttpServletRequest request) {
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        if (memberDto != null) {
+            model.addAttribute("memberDto", memberDto);
+        }
         PostDto findPostDto = postService.findById(id);
         model.addAttribute("post", findPostDto);
         return "post/detail";
     }
 
     @GetMapping("/update/{id}")
-    public String edit(Model model, @RequestParam Long id) {
+    public String edit(Model model, @RequestParam Long id, HttpServletRequest request) {
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        if (memberDto != null) {
+            model.addAttribute("memberDto", memberDto);
+        }
         PostDto postDto = postService.findById(id);
         model.addAttribute("postDto", postDto);
         return "/post/write";
@@ -84,6 +105,37 @@ public class PostController {
         redirectAttributes.addAttribute("categoryName", categoryName);
         postService.delete(postId);
         return "redirect:/list/{categoryName}";
+    }
+
+    @PostMapping("/list/{category}")
+    public String searching(@ModelAttribute SearchDto searchDto, RedirectAttributes redirectAttributes) {
+        String type = searchDto.getSearchType();
+        String content = searchDto.getSearchContent();
+        redirectAttributes.addAttribute("type", type);
+        redirectAttributes.addAttribute("content", content);
+        return "redirect:/post/search/{type}/{content}";
+    }
+
+    @PostMapping("/search/{type}/{content}")
+    public String searching2(@ModelAttribute SearchDto searchDto, RedirectAttributes redirectAttributes) {
+        String type = searchDto.getSearchType();
+        String content = searchDto.getSearchContent();
+        redirectAttributes.addAttribute("type", type);
+        redirectAttributes.addAttribute("content", content);
+        return "redirect:/post/search/{type}/{content}";
+    }
+
+    @GetMapping("/search/{type}/{content}")
+    public String search(@PathVariable String type, @PathVariable String content, Model model) {
+        log.info("type={} content={}", type, content);
+
+        SearchDto searchDto = new SearchDto(type, content);
+        List<PostDto> postDtoList = postService.searchResult(searchDto);
+
+        model.addAttribute("search", new SearchDto("", ""));
+        model.addAttribute("postList", postDtoList);
+        model.addAttribute("categoryName", "검 색 결 과");
+        return "post/board";
     }
 
 }

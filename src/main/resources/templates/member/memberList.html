@@ -5,12 +5,13 @@
     <title>개발자들</title>
     <link rel="stylesheet" href="../../static/css/board.css">
     <link rel="stylesheet" th:href="@{/css/board.css}">
+    <link rel="stylesheet" th:href="@{/css/memberList.css}">
 </head>
 <body>
 <nav th:replace="fragment/nav"></nav>
 
 <div class="none_center">
-    <h3>회원목록</h3>
+    <h3>회 원 목 록</h3>
     <hr>
 </div>
 
@@ -18,16 +19,18 @@
     <table>
         <thead>
         <tr>
-            <th>학번</th>
-            <th>이름</th>
+            <th>학 번</th>
+            <th>이 름</th>
+            <th>소 속</th>
             <th>Email</th>
-            <th>가입일</th>
+            <th>가 입 일</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="member : ${members}">
             <td th:text="${member.studentId}">학번</td>
             <td th:text="${member.name}">이름</td>
+            <td>IT융합자율학부</td>
             <td th:text="${member.email}">Email</td>
             <td th:text="${#temporals.format(member.joinDate, 'yyyy-MM-dd HH:mm')}">가입일</td>
         </tr>

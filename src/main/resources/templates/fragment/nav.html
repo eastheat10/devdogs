@@ -9,7 +9,7 @@
         <li class="nav03"><a th:href="@{/post/list/active}">활동내역</a></li>
         <li class="nav04"><a th:href="@{/member/list}">회원명단</a></li>
     </ul>
-    <a th:href="@{/mypage}"><img class="img01" th:src="@{/image/mypage_icon.png}"></a>
-    <a th:href="@{/logout}"><img class="img02" th:src="@{/image/login_icon.png}"></a>
+    <a th:href="@{|/member/mypage/${memberDto?.studentId}|}"><img class="img01" th:src="@{/image/mypage_icon.png}"></a>
+    <a th:href="@{/logout}"><img class="img02" th:src="@{/image/out.png}"></a>
 </nav>
 </html>

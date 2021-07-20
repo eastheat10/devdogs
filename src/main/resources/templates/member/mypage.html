@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
+    <link rel="stylesheet" th:href="@{/css/myPage.css}">
+</head>
+<body>
+<nav th:replace="fragment/nav"></nav>
+
+<div class="none_center">
+    <h3>마 이 페 이 지</h3>
+    <hr>
+</div>
+
+<div class="middle">
+    <table class="info">
+        <tr>
+            <td class="category">이 름</td>
+            <td class="box" th:text="${member.name}">이름</td>
+        </tr>
+        <tr>
+            <td class="category">학 번</td>
+            <td class="box" th:text="${member.studentId}">학번</td>
+        </tr>
+        <tr>
+            <td class="category">소 속</td>
+            <td class="box">IT융합자율학부</td>
+        </tr>
+        <tr>
+            <td class="category">이 메 일</td>
+            <td class="box" th:text="${member.email}">EMAIL</td>
+        </tr>
+        <tr>
+            <td class="category">동아리 가입일</td>
+            <td class="box" th:text="${member.joinDate}">가입일</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="middle">
+    <table class="act">
+        <thead>
+        <tr>
+            <th colspan="3" style="text-align: center">나의 동아리 활동 내역</th>
+        </tr>
+        <tr>
+            <td class="category">제 목</td>
+            <td class="category">작 성 일</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td class="box" th:text="${post.title}">
+                제목
+            </td>
+            <td id="date1" class="box"
+                th:text="${#temporals.format(post.createDate, 'yyyy-MM-dd')}">
+                작성일
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="fragment/footer"></footer>
+<script th:src="@{/js/myPage.js}"></script>
+</body>
+</html>

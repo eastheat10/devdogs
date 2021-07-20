@@ -3,6 +3,7 @@ package net.skhu.devdogs.service;
 import lombok.RequiredArgsConstructor;
 import net.skhu.devdogs.dto.MemberDto;
 import net.skhu.devdogs.dto.PostDto;
+import net.skhu.devdogs.dto.SearchDto;
 import net.skhu.devdogs.entity.Member;
 import net.skhu.devdogs.entity.Post;
 import net.skhu.devdogs.entity.PostCategory;
@@ -37,6 +38,17 @@ public class PostService {
 
     public List<PostDto> findAll() {
         List<Post> posts = postRepository.findAll();
+        List<PostDto> postDtoList = new ArrayList<>();
+        for (Post post : posts) {
+            PostDto postDto = new PostDto(post);
+            postDtoList.add(postDto);
+        }
+        return postDtoList;
+    }
+
+    public List<PostDto> findPostByStudentId(String studentId) {
+        Member member = memberRepository.findByStudentId(studentId);
+        List<Post> posts = postRepository.findPostsByStudentId(member.getId());
         List<PostDto> postDtoList = new ArrayList<>();
         for (Post post : posts) {
             PostDto postDto = new PostDto(post);
@@ -89,7 +101,27 @@ public class PostService {
                 postRepository.save(post);
             }
         }
+    }
 
+    public List<PostDto> searchResult(SearchDto searchDto) {
+        List<Post> posts = new ArrayList<>();
+        List<PostDto> postDtoList = new ArrayList<>();
+        String searchContent = searchDto.getSearchContent();
+        switch (searchDto.getSearchType()) {
+            case "writer" :
+                posts = postRepository.findByMemberLike(searchContent);
+                break;
+            case "title" :
+                posts = postRepository.findByTitleLike(searchContent);
+                break;
+            case "content" :
+                posts = postRepository.findByContentLike(searchContent);
+                break;
+        }
+        for (Post post : posts) {
+            postDtoList.add(new PostDto(post));
+        }
+        return postDtoList;
     }
 
     public Post toEntity(PostDto postDto) {

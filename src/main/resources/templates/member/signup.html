@@ -8,17 +8,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-<nav class="menu">
-    <a th:href="@{/}"><img class="logo" th:src="@{image/devdogs_logo.png}"></a>
-    <ul>
-        <li class="nav01"><a href="#">자유게시판</a></li>
-        <li class="nav02"><a href="#">프로젝트</a></li>
-        <li class="nav03"><a href="#">활동내역</a></li>
-        <li class="nav04"><a href="#">회원명단</a></li>
-    </ul>
-    <a th:href="@{/myPage}"><img class="img01" th:src="@{image/mypage_icon.png}"></a>
-    <a th:href="@{/signin}"><img class="img02" th:src="@{image/login_icon.png}"></a>
-</nav>
+<nav th:replace="fragment/nav"></nav>
 
 <div class="none_center">
     <h3>회 원 가 입</h3>
@@ -43,7 +33,7 @@
                     <td class="err" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"/>
                 </tr>
                 <tr>
-                    <button class="idChk" type="button" id="idChk" onclick="fn_idChk();">중복확인</button>
+                    <input class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="중복확인" />
                 </tr>
 
                 <tr>

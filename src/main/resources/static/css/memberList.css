@@ -1,0 +1,24 @@
+.name {
+    width: 200px;
+    text-align: center
+}
+
+.no {
+    width: 250px;
+    text-align: center
+}
+
+.faculty {
+    width: 250px;
+    text-align: center
+}
+
+.date {
+    width: 300px;
+    text-align: center
+}
+
+td, tr {
+    margin: 0 20px;
+}
+

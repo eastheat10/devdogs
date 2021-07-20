@@ -34,10 +34,18 @@ public class PostController {
         PostCategory postCategory = postCategoryService.findByName(postCategoryName);
         String categoryName = "";
         switch (postCategory.getName()) {
-            case "free": categoryName = "자유게시판"; break;
-            case "active" :categoryName = "활동내역"; break;
-            case "project" :categoryName = "프로젝트"; break;
-            case "notice" :categoryName = "공지사항"; break;
+            case "free":
+                categoryName = "자유게시판";
+                break;
+            case "active":
+                categoryName = "활동내역";
+                break;
+            case "project":
+                categoryName = "프로젝트";
+                break;
+            case "notice":
+                categoryName = "공지사항";
+                break;
         }
         List<PostDto> postDtoList = postService.findByPostCategory(postCategory.getId());
         model.addAttribute("postList", postDtoList);
@@ -47,13 +55,13 @@ public class PostController {
     }
 
     @GetMapping("/write")
-    public String write(HttpServletRequest request, Model model, PostDto postDto) {
+    public String write(HttpServletRequest request, Model model, PostDto postDto, RedirectAttributes redirectAttributes) {
         MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
-        if (memberDto != null) {
-            model.addAttribute("memberDto", memberDto);
-        }
-        else {
+        if (memberDto == null) {
+            redirectAttributes.addAttribute("status", true);
             return "redirect:/login";
+        } else {
+            model.addAttribute("memberDto", memberDto);
         }
         List<PostCategory> postCategoryList = postCategoryService.findAll();
         model.addAttribute("categoryList", postCategoryList);
@@ -62,7 +70,7 @@ public class PostController {
 
     @PostMapping("/write")
     public String write(@ModelAttribute PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-        MemberDto memberDto = (MemberDto)request.getSession().getAttribute("member");
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
         postService.write(postDto, memberDto);
         String categoryName = postCategoryService.findCategoryName(postDto.getPostCategoryId());
         redirectAttributes.addAttribute("postCategoryName", categoryName);

@@ -25,12 +25,8 @@ public class IndexController {
             model.addAttribute("memberDto", memberDto);
         }
         List<PostDto> postDtoList = postService.findByPostCategory(1L);
-        model.addAttribute("notices", postDtoList.stream().limit(6).collect(Collectors.toList()));
+        model.addAttribute("notices", postDtoList.stream().limit(7).collect(Collectors.toList()));
         return "/index";
-    }
-
-    public void init() {
-        postService.postInit();
     }
 
 }

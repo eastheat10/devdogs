@@ -1,11 +1,11 @@
 package net.skhu.devdogs.controller;
 
-import net.skhu.devdogs.dto.MemberDto;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 public class CustomErrorController implements ErrorController {
 
     @RequestMapping(value = "/error")
-    public String handleError(HttpServletRequest request, Model model) {
+    public String handleError(HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
-        HttpStatus httpStatus = HttpStatus.valueOf((int)status);
+        HttpStatus httpStatus = HttpStatus.valueOf((int) status);
 
         if (status != null) {
             int statusCode = Integer.valueOf(status.toString());
@@ -33,6 +33,7 @@ public class CustomErrorController implements ErrorController {
                 return "/error/500";
             }
             if (request.getSession().getAttribute("member") == null) {
+                redirectAttributes.addAttribute("status", true);
                 return "redirect:/login";
             }
         }

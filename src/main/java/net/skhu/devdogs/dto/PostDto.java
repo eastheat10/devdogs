@@ -39,6 +39,7 @@ public class PostDto {
         content = post.getContent();
         postCategoryId = post.getPostCategory().getId();
         postCategoryName = post.getPostCategory().getName();
+        postCategoryKoName = post.getPostCategory().getKoName();
         createDate = post.getCreateTime();
         modifiedDate = post.getModifiedDate();
     }

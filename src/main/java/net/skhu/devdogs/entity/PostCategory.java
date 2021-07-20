@@ -11,7 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class PostCategory {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_category_id")
     private Long id;
 

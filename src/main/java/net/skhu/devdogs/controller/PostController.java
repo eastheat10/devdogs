@@ -14,9 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @Slf4j
@@ -106,20 +103,22 @@ public class PostController {
             return "redirect:/post/detail/" + id;
         }
 
-
         model.addAttribute("categoryList", postCategoryService.findAll());
         model.addAttribute("postDto", postDto);
         return "/post/write";
     }
 
     @PostMapping("/edit/{id}")
-    public String postUpdate(Model model, @ModelAttribute PostDto postDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        Long updateId = postService.update(postDto);
+    public String postUpdate(@ModelAttribute PostDto postDto, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
-        if (!postDto.getWriter().equals(memberDto.getName())) {
+        String writer = postService.findById(postDto.getId()).getWriter();
+
+        if (!writer.equals(memberDto.getName())) {
             redirectAttributes.addAttribute("falseWriter", true);
-            return "redirect:detail/" + updateId;
+            return "redirect:/post/detail/" + postDto.getId();
         }
+
+        Long updateId = postService.update(postDto);
         redirectAttributes.addAttribute("postId", updateId);
         return "redirect:/post/detail/{postId}";
     }

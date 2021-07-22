@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Slf4j
@@ -64,6 +67,7 @@ public class PostController {
             model.addAttribute("memberDto", memberDto);
         }
         List<PostCategory> postCategoryList = postCategoryService.findAll();
+        model.addAttribute("postDto", postDto);
         model.addAttribute("categoryList", postCategoryList);
         return "post/write";
     }
@@ -85,34 +89,56 @@ public class PostController {
         }
         PostDto findPostDto = postService.findById(id);
         model.addAttribute("post", findPostDto);
-        return "post/detail";
+        return "post/postDetail";
     }
 
-    @GetMapping("/update/{id}")
-    public String edit(Model model, @RequestParam Long id, HttpServletRequest request) {
+    @GetMapping("/edit/{id}")
+    public String edit(Model model, @PathVariable Long id, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        PostDto postDto = postService.findById(id);
+
         if (memberDto != null) {
             model.addAttribute("memberDto", memberDto);
         }
-        PostDto postDto = postService.findById(id);
+        if (!postDto.getWriter().equals(memberDto.getName())) {
+            System.out.println("hello wrong user");
+            redirectAttributes.addAttribute("falseWriter", true);
+            return "redirect:/post/detail/" + id;
+        }
+
+
+        model.addAttribute("categoryList", postCategoryService.findAll());
         model.addAttribute("postDto", postDto);
         return "/post/write";
     }
 
-    @PostMapping("/update")
-    public String postUpdate(Model model, @ModelAttribute PostDto postDto, RedirectAttributes redirectAttributes) {
+    @PostMapping("/edit/{id}")
+    public String postUpdate(Model model, @ModelAttribute PostDto postDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         Long updateId = postService.update(postDto);
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        if (!postDto.getWriter().equals(memberDto.getName())) {
+            redirectAttributes.addAttribute("falseWriter", true);
+            return "redirect:detail/" + updateId;
+        }
         redirectAttributes.addAttribute("postId", updateId);
-        return "redirect:detail/{postId}";
+        return "redirect:/post/detail/{postId}";
     }
 
     @PostMapping("/delete/{id}")
-    public String delete(@PathVariable("id") Long postId, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable("id") Long postId, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         PostDto postDto = postService.findById(postId);
-        String categoryName = postCategoryService.findCategoryName(postDto.getId());
-        redirectAttributes.addAttribute("categoryName", categoryName);
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+
+        if (!postDto.getWriter().equals(memberDto.getName())) {
+            redirectAttributes.addAttribute("falseWriter", true);
+            return "redirect:/post/detail/" + postId;
+        }
+
+        String categoryName = postDto.getPostCategoryName();
+
         postService.delete(postId);
-        return "redirect:/list/{categoryName}";
+        redirectAttributes.addAttribute("isDelete", true);
+        return "redirect:/post/list/" + categoryName;
     }
 
     @PostMapping("/list/{category}")

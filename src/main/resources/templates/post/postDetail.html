@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+<nav th:replace="fragment/nav"></nav>
+
+<div class="middle">
+    <table>
+        <tbody>
+        <tr class="top">
+            <td class="deco">제목</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="deco">작성자</td>
+            <td class="len"></td>
+        </tr>
+        <tr>
+            <td class="deco">작성시간</td>
+            <td class="len"></td>
+        </tr>
+        <tr>
+            <td class="deco">첨부파일</td>
+            <td class="len"></td>
+        </tr>
+        <tr>
+            <td class="view_content" colspan="2"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="middle">
+    <input class="button" type=button value="수정">&nbsp;&nbsp;&nbsp;
+    <input class="button" type=button value="삭제">&nbsp;&nbsp;&nbsp;
+    <input class="button" type=button value="목록">
+</div>
+
+<footer>
+    <hr class="foot_hr">
+    <p>08359 서울시 구로구 연동로 320, 지하철 1·7호선 온수역(성공회대 입구역)</p>
+    <p>TEL.02-2610-4114 / FAX.02-2683-8858</p>
+    <P>Copyright 2021 SUNGKONGHOE UNIVERSITY Club Of Devdogs All Right Reserved</P>
+</footer>
+<script src="freeView.js"></script>
+</body>
+</html>

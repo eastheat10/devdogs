@@ -1,6 +1,8 @@
 package net.skhu.devdogs.repository;
 
 import net.skhu.devdogs.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,18 +14,21 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Query("select p from Post p where p.postCategory.id = :categoryId order by p.modifiedDate desc")
-    public List<Post> findByCategoryId(@Param("categoryId") Long id);
+    List<Post> findPostsByCategoryId(@Param("categoryId") Long id);
+
+    @Query("select p from Post p where p.postCategory.id = :categoryId")
+    Page<Post> findPostsByCategoryId(@Param("categoryId") Long id, Pageable pageable);
 
     @Query("select p from Post p where p.member.id = :memberId order by p.createTime")
-    public List<Post> findPostsByStudentId(@Param("memberId") Long memberId);
+    List<Post> findPostsByStudentId(@Param("memberId") Long memberId);
 
     @Query("select p from Post p where p.title like %:searchContent%")
-    public List<Post> findByTitleLike(@Param("searchContent") String searchContent);
+    List<Post> findByTitleLike(@Param("searchContent") String searchContent);
 
     @Query("select p from Post p where p.content like %:searchContent%")
-    public List<Post> findByContentLike(@Param("searchContent") String searchContent);
+    List<Post> findByContentLike(@Param("searchContent") String searchContent);
 
     @Query("select p from Post p where p.member.name like %:searchContent%")
-    public List<Post> findByMemberLike(@Param("searchContent") String searchContent);
+    List<Post> findByMemberLike(@Param("searchContent") String searchContent);
 
 }

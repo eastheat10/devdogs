@@ -10,6 +10,10 @@ import net.skhu.devdogs.entity.PostCategory;
 import net.skhu.devdogs.repository.MemberRepository;
 import net.skhu.devdogs.repository.PostCategoryRepository;
 import net.skhu.devdogs.repository.PostRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,14 +67,18 @@ public class PostService {
         return findPostDto;
     }
 
-    public List<PostDto> findByPostCategory(Long id) {
-        List<Post> posts = postRepository.findByCategoryId(id);
+    public List<PostDto> findPostsByPostCategory(Long id) {
+        List<Post> posts = postRepository.findPostsByCategoryId(id);
         List<PostDto> postDtoList = new ArrayList<>();
         for (Post post : posts) {
             PostDto findPostDto = new PostDto(post);
             postDtoList.add(findPostDto);
         }
         return postDtoList;
+    }
+
+    public Page<Post> findPostPagingByPostCategory(Long id, Pageable pageable) {
+        return postRepository.findPostsByCategoryId(id, pageable);
     }
 
     @Transactional

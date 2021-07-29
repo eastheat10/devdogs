@@ -5,9 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import net.skhu.devdogs.dto.MemberDto;
 import net.skhu.devdogs.dto.PostDto;
 import net.skhu.devdogs.dto.SearchDto;
+import net.skhu.devdogs.entity.Post;
 import net.skhu.devdogs.entity.PostCategory;
 import net.skhu.devdogs.service.PostCategoryService;
 import net.skhu.devdogs.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,11 +52,45 @@ public class PostController {
                 categoryName = "공지사항";
                 break;
         }
-        List<PostDto> postDtoList = postService.findByPostCategory(postCategory.getId());
+        List<PostDto> postDtoList = postService.findPostsByPostCategory(postCategory.getId());
         model.addAttribute("postList", postDtoList);
         model.addAttribute("categoryName", categoryName);
         model.addAttribute("search", new SearchDto("", ""));
         return "post/board";
+    }
+
+    @GetMapping("/list2/{postCategoryName}")
+    public String postPage(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                           @PathVariable String postCategoryName, HttpServletRequest request) {
+        MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
+        if (memberDto != null) {
+            model.addAttribute("memberDto", memberDto);
+        }
+        PostCategory postCategory = postCategoryService.findByName(postCategoryName);
+        String categoryName = "";
+        switch (postCategory.getName()) {
+            case "free":
+                categoryName = "자유게시판";
+                break;
+            case "active":
+                categoryName = "활동내역";
+                break;
+            case "project":
+                categoryName = "프로젝트";
+                break;
+            case "notice":
+                categoryName = "공지사항";
+                break;
+        }
+        Page<Post> page = postService.findPostPagingByPostCategory(postCategory.getId(), pageable);
+        Integer[] pageSize = new Integer[pageable.getPageSize()];
+        for (int i = 0; i < pageSize.length; i++)
+            pageSize[i] = i + 1;
+        model.addAttribute("postList", page.getContent());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("categoryName", categoryName);
+        model.addAttribute("search", new SearchDto("", ""));
+        return "post/board2";
     }
 
     @GetMapping("/write")

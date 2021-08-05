@@ -30,7 +30,7 @@ public class PostController {
     private final PostService postService;
     private final PostCategoryService postCategoryService;
 
-    @GetMapping("/list/{postCategoryName}")
+    @GetMapping("/list2/{postCategoryName}")
     public String post(Model model, @PathVariable String postCategoryName, HttpServletRequest request) {
         MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
         if (memberDto != null) {
@@ -59,7 +59,7 @@ public class PostController {
         return "post/board";
     }
 
-    @GetMapping("/list2/{postCategoryName}")
+    @GetMapping("/list/{postCategoryName}")
     public String postPage(Model model, @PageableDefault(size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                            @PathVariable String postCategoryName, HttpServletRequest request) {
         MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
@@ -85,9 +85,9 @@ public class PostController {
         Page<Post> page = postService.findPostPagingByPostCategory(postCategory.getId(), pageable);
         Integer[] pageSize = new Integer[pageable.getPageSize()];
         for (int i = 0; i < pageSize.length; i++)
-            pageSize[i] = i + 1;
+            pageSize[i] = i;
         model.addAttribute("postList", page.getContent());
-        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("pageSize", page.getTotalPages() - 1);
         model.addAttribute("categoryName", categoryName);
         model.addAttribute("search", new SearchDto("", ""));
         return "post/board2";

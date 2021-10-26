@@ -102,7 +102,7 @@ class PostRepositoryTest {
 
     @Test
     public void findByCategoryId() {
-        List<Post> posts = postRepository.findByCategoryId(1L);
+        List<Post> posts = postRepository.findPostsByCategoryId(1L);
         PostCategory postCategory = posts.get(0).getPostCategory();
         assertThat(postCategory.getId()).isEqualTo(1L);
     }

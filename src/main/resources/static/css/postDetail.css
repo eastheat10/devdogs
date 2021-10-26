@@ -11,6 +11,14 @@
     text-align: center;
 }
 
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9;
+}
+
 nav ul li {
     margin-top: 60px;
     display: inline-block;
@@ -50,6 +58,14 @@ nav ul li a {
     position: absolute;
     top: 50px;
     right: 12%;
+}
+
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
 }
 
 .menu ul li a::after {
@@ -143,6 +159,11 @@ td, th {
     width: 850px;
 }
 
+.change:hover {
+    cursor: pointer;
+    color: cornflowerblue;
+}
+
 .view_content { 
     width: 1000px;
     max-height: 2000px;
@@ -170,15 +191,97 @@ td, th {
     border: 1px solid #a2a2a2;
 }
 
-footer {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    height: 70px;
-    margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나가도록 설정 */
-}
-
 footer p {
     margin-left: 8%;
     color: #7f7f7f;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin-top: 10px;
+    height: 70px;
+}
+
+body {
+    padding-top: 130px;
+    padding-bottom: 100px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+.detail_content {
+    display: block;
+    width: 100%;
+    height: 500px;
+    margin: 10px auto;
+    padding: 20px 15px;
+    border: none;
+    border-top: 1px #D76C6C solid;
+}
+
+.inner {
+    display: table-cell;
+    position: relative;
+    z-index: 10;
+    vertical-align: bottom;
+    padding: 15px 15px;
+}
+
+.category {
+    display: block;
+    max-width: 1080px;
+    margin: 0 auto 13px;
+    font-size: 0.875em;
+    color: #000;
+}
+
+h1 {
+    max-width: 1080px;
+    margin: 0 auto;
+    font-weight: 300;
+    font-size: 2.125em;
+    line-height: 1.2352;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.meta {
+    display: block;
+    max-width: 1080px;
+    margin: 34px auto 0;
+    font-size: 0.875em;
+    color: rgba(0,0,0,0.6);
+}
+.meta a {
+    color: rgba(0,0,0,0.6);
+}
+.meta a:before,
+.meta span:before {
+    content: "";
+    display: inline-block;
+    width: 2px;
+    height: 2px;
+    margin: 0 8px 0 4px;
+    background-color: rgba(255,255,255,0.6);
+    vertical-align: middle;
+}
+.meta span:first-child:before {
+    content: none;
+}
+
+.tc {
+    margin: 15px auto;
+    padding-top: 15px;
+    width: 60%;
 }

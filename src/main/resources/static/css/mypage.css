@@ -60,6 +60,14 @@ nav ul li a {
     right: 12%;
 }
 
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
+}
+
 .menu ul li a::after {
     content: "";
     display: block;
@@ -204,4 +212,8 @@ html {
     position: relative;
     min-height: 100%;
     margin: 0;
+}
+
+.toPost:hover {
+    cursor: pointer;
 }

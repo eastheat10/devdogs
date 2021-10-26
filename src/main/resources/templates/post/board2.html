@@ -9,57 +9,69 @@
 <body>
 <nav th:replace="fragment/nav"></nav>
 <div class="container1">
-<div class="none_center">
-    <h3 th:text="${ categoryName }"></h3>
-    <hr>
-</div>
+    <div class="none_center">
+        <h3 th:text="${ categoryName }"></h3>
+        <hr>
+    </div>
 
-<form th:object="${search}" method="Post" th:action>
-    <p>
-        <select class="searchSelect" th:field="*{searchType}">
-            <!--                    <option value="searchAll">전체검색</option>-->
-            <option value="title">제목</option>
-            <option value="writer">작성자</option>
-            <option value="content">내용</option>
-        </select>
-        <input class="searchText" type="text" th:field="*{searchContent}" placeholder="검색 내용 입력">
-        <input class="search" type="submit" value="검색">
-    </p>
-</form>
+    <form th:object="${search}" method="Post" th:action>
+        <p>
+            <select class="searchSelect" th:field="*{searchType}">
+                <!--                    <option value="searchAll">전체검색</option>-->
+                <option value="title">제목</option>
+                <option value="writer">작성자</option>
+                <option value="content">내용</option>
+            </select>
+            <input class="searchText" type="text" th:field="*{searchContent}" placeholder="검색 내용 입력">
+            <input class="search" type="submit" value="검색">
+        </p>
+    </form>
 
-<div class="middle">
-    <table>
-        <thead>
-        <tr>
-            <th class="number">번 호</th>
-            <th class="b_category">카 테 고 리</th>
-            <th class="title">제 목</th>
-            <th class="writer">작 성 자</th>
-            <th class="date">작 성 일</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="content" th:each="post : ${postList}"
-            th:onclick="'location.href=\''+ @{|/post/detail/${post.id}|} + '\''">
+    <div class="middle">
+        <table>
+            <thead>
+            <tr>
+                <th class="number">번 호</th>
+                <th class="b_category">카 테 고 리</th>
+                <th class="title">제 목</th>
+                <th class="writer">작 성 자</th>
+                <th class="date">작 성 일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="content" th:each="post : ${postList}"
+                th:onclick="'location.href=\''+ @{|/post/detail/${post.id}|} + '\''">
                 <td th:text="${post.id}">번호</td>
-                <td th:text="${post.postCategoryKoName}">카테고리</td>
+                <td th:text="${post.postCategory.koName}">카테고리</td>
                 <td th:text="${post.title}">제목</td>
-                <td th:text="${post.writer}">작성자</td>
-                <td th:text="${#temporals.format(post.createDate, 'yyyy-MM-dd HH:mm')}">작성일</td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+                <td th:text="${post.member.name}">작성자</td>
+                <td th:text="${#temporals.format(post.createTime, 'yyyy-MM-dd HH:mm')}">작성일</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-<div class="middle">
-    <button type="submit" th:onclick="|location.href='@{/post/write}'|">글쓰기</button>
-</div>
+    <div class="paging">
+        <a th:each="number : ${#numbers.sequence(0, pageSize)}"
+           th:with="p = ${#numbers.formatInteger(param.page, 0)}"
+           th:classappend="${p} == ${number} ? 'selected'"
+           th:text="${number} + 1" th:href="@{|?page=${number}|}">number</a>
+<!--                <a class="selected" href="#">1</a>-->
+<!--                <a href="#">2</a>-->
+<!--                <a href="#">3</a>-->
+<!--                <a href="#">4</a>-->
+<!--                <a href="#">5</a>-->
+    </div>
+
+    <div class="middle">
+        <button type="submit" th:onclick="|location.href='@{/post/write}'|">글쓰기</button>
+    </div>
 </div>
 
 <footer th:replace="fragment/footer"></footer>
 
 <script type="text/javascript" th:if="${param.isDelete}">
-    alert('삭제되었습니다.');
+    // alert('삭제되었습니다.');
 </script>
 
 </body>

@@ -7,15 +7,16 @@
 </head>
 <body>
 <div class="login_form">
+    <h2 th:if="${param.status}" th:text="'로그인이 필요합니다!'"></h2>
     <form th:object="${memberDto}" method="post"><br>
         <a th:href="@{/}"><img th:src="@{/image/logo0.png}"></a>
         <input class="num" type="text" th:field="*{studentId}" placeholder="학번"><br><br><br>
         <input class="pw" type="password" th:field="*{password}" placeholder="비밀번호"><br><br><br><br>
-        <a th:href="@{/index}">
+        <a>
             <button type="submit">로 그 인</button>
         </a>
         <a th:href="@{/signup}">
-            <button type="button" onclick="location.href='join.html' ">회 원 가 입</button>
+            <button type="button">회 원 가 입</button>
         </a>
         <h3 th:text="${message}"></h3>
     </form>

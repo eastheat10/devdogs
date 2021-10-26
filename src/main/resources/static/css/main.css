@@ -60,6 +60,14 @@ nav ul li a {
     right: 12%;
 }
 
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
+}
+
 .menu ul li a::after {
     content: "";
     display: block;
@@ -161,10 +169,11 @@ button:hover:before,button:hover:after {
 td, th {
     padding: 10px;
     height: 40px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #d86c6c;
 }
 
 tbody tr:hover {
+    cursor: pointer;
     background-color: #EEEEEE;
 }
 
@@ -192,11 +201,12 @@ tbody tr:hover {
 .noticeDiv {
     margin-right: 100px;
     float: left;
-    width: 40%;
+    width: 30%;
 }
 
 .noticeDiv table{
     width: 100%;
+    border-collapse: collapse;
 }
 
 .linkDiv {

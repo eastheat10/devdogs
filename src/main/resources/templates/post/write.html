@@ -5,41 +5,28 @@
     <title>개발자들</title>
 
     <link rel="stylesheet" href="../../static/css/write.css">
+    <link th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/css/write.css}">
 </head>
 <body>
 <nav th:replace="fragment/nav"></nav>
 
-<div class="none_center">
-    <h3>글 쓰 기</h3>
-    <hr>
-</div>
-
 <form class="form" th:object="${postDto}" method="post">
     <div class="middle">
-        <table>
-            <tr><td class="category">카테고리</td>
-                <td>
-                    <select th:name="postCategoryId">
-                        <option th:each="category : ${categoryList}"
-                                th:value="${category.id}"
-                                th:text="${category.koName}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td class="name">제목</td>
-                <td>&nbsp;<input th:field="*{title}" size="149" maxlength="200"></td>
-            </tr>
-            <tr>
-                <td class="content">내용</td>
-                <td>&nbsp;<textarea th:field="*{content}" cols="150" rows="15"></textarea></td>
-            </tr>
-<!--            <tr><td class="file">첨부파일</td><td>&nbsp;<input type="file" value="첨부파일"></td></tr>-->
-        </table>
+        <h3>글 쓰 기</h3>
+        <select th:name="postCategoryId" class="write-select">
+            <option value="0">카테고리를 선택해주세요.</option>
+            <option th:each="category : ${categoryList}"
+                    th:value="${category.id}"
+                    th:text="${category.koName}"
+                    th:selected="${category.koName} == ${postDto.postCategoryKoName}"></option>
+        </select>
+        <input class="write-title" th:field="*{title}" width="150" maxlength="200" placeholder="제목을 입력하세요.">
+        <textarea class="write-content" th:field="*{content}" cols="130" rows="15" placeholder="내용을 입력하세요."></textarea>
+        <!--<tr><td class="file">첨부파일</td><td>&nbsp;<input type="file" value="첨부파일"></td></tr>-->
     </div>
     <div class="middle">
-        <input class="button" type="submit" value="저장" OnClick="javascript:writeCheck();">&nbsp;&nbsp;&nbsp;
+        <input class="button" type="submit" value="저장">
         <input class="button" type="button" value="취소" OnClick="javascript:history.back(-1)">
     </div>
 </form>

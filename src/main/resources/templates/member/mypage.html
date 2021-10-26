@@ -51,7 +51,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="post : ${posts}">
+        <tr class="toPost" th:each="post : ${posts}"
+            th:onclick="'location.href=\''+ @{|/post/detail/${post.id}|} + '\''">
             <td class="box" th:text="${post.title}">
                 제목
             </td>
@@ -66,5 +67,6 @@
 
 <footer th:replace="fragment/footer"></footer>
 <script th:src="@{/js/myPage.js}"></script>
+
 </body>
 </html>

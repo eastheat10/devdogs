@@ -1,0 +1,219 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.menu {
+    height: 130px;
+    background: #d86c6c;
+    text-align: center;
+}
+
+nav ul li {
+    margin-top: 60px;
+    display: inline-block;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9;
+}
+
+nav ul li a {
+    position: relative;
+    color: white;
+    font-size: 16pt;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.nav01, .nav02, .nav03, .nav04 {
+    padding-right: 3%;
+}
+
+.logo {
+    width: 220px;
+    height: 100px;
+    position: absolute;
+    top: 17px;
+    left: 12%;
+}
+
+.img01 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 16%;
+}
+
+.img02 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 12%;
+}
+
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
+}
+
+.menu ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width .3s;
+}
+
+.menu ul li a:hover:after {
+    width: 100%;
+    transition: width .3s;
+} /*처음부터 여기까지가 메뉴바 css*/
+
+.div {
+    text-align:center;
+} /*화면 크기에 따라 표 움직임*/
+
+h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 28pt;
+    color: #d86c6c
+}
+
+hr {
+    border : 3px solid #d86c6c
+}
+
+.none_center h3 {
+    margin-left: 10vw;
+    margin-right: 10vw;
+} /*회원가입 오른쪽으로 밀기*/
+
+.none_center hr {
+    margin-left: 8vw;
+    margin-right: 8vw;
+} /*선 길이 줄이기*/
+
+.middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    border: 2px solid #a2a2a2;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 2px solid #7f7f7f; 
+}
+
+.category {
+    background-color: #D5D5D5;
+    width: 250px;
+    height: 50px;
+    text-align: center;
+    font-size: 15pt;
+    font-weight: 700;
+}
+
+.box {
+    width: 300px;
+    text-align: center;
+}
+
+th {
+    background-color: #D5D5D5;
+    font-size: 18pt;
+    height: 80px;
+    text-align: left;
+}
+
+.act .box {
+    height: 50px;
+}
+
+.act tbody tr:hover {
+    background-color: #EEEEEE;
+}
+
+.number {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 13pt;
+    border-left: none;
+    border-right: none;
+}
+
+.title {
+    width: 650px;
+    border-left: none;
+    border-right: none;
+}
+
+.date {
+    width: 300px;
+    text-align: center;
+    font-size: 13pt;
+    border-left: none;
+    border-right: none;
+}
+
+.info, .act {
+    margin-top: 80px;
+}
+
+.foot_hr {
+    border: 1px solid #a2a2a2;
+}
+
+.floor {
+    position: absolute;
+    width: 100%;
+    margin-top: 150px;
+}
+
+footer p {
+    margin-left: 8%;
+    color: #7f7f7f;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    margin-top: 10px;
+    height: 70px;
+}
+
+body {
+    padding-top: 130px;
+    padding-bottom: 100px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+.toPost:hover {
+    cursor: pointer;
+}

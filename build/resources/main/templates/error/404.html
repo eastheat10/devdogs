@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들 :: 페이지를 찾을 수 없습니다.</title>
+</head>
+<body>
+<h1>404 Not Found</h1>
+<p th:text="${code}"></p>
+<p th:text="${msg}"></p>
+<p th:text="${timestamp}"></p>
+<a th:href="@{/}"><img th:src="@{/image/logo0.png}"></a>
+</body>
+</html>

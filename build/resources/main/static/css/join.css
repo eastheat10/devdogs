@@ -1,0 +1,183 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.menu {
+    height: 130px;
+    background: #d86c6c;
+    text-align: center;
+}
+
+nav ul li {
+    margin-top: 60px;
+    display: inline-block;
+}
+
+nav ul li a {
+    position: relative;
+    color: white;
+    font-size: 16pt;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.nav01 {
+    padding-right: 60px;
+}
+
+.nav02 {
+    padding-right: 60px;
+}
+
+.nav03 {
+    padding-right: 60px;
+}
+
+.logo {
+    width: 220px;
+    height: 100px;
+    position: absolute;
+    top: 17px;
+    left: 12%;
+}
+
+.img01 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 16%;
+}
+
+.img02 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 12%;
+}
+
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
+}
+
+.menu ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width .3s;
+}
+
+.menu ul li a:hover:after {
+    width: 100%;
+    transition: width .3s;
+} /*처음부터 여기까지가 메뉴바 css*/
+
+.div {
+    text-align:center;
+} /*화면 크기에 따라 표 움직임*/
+
+h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 28pt;
+    color: #d86c6c
+}
+
+hr {
+    border : 3px solid #d86c6c
+}
+
+.none_center h3 {
+    margin-left: 10vw;
+    margin-right: 10vw;
+} /*회원가입 오른쪽으로 밀기*/
+
+.none_center hr {
+    margin-left: 8vw;
+    margin-right: 8vw;
+} /*선 길이 줄이기*/
+
+form { 
+    text-align: center;
+}
+
+table {
+    width: 650px;
+    height: 450px;
+    display: inline-block; /*표 가운데로*/
+}
+
+.box {
+    margin-top: 20px;
+    width: 400px;
+    height: 30px;
+    border: 4px solid #a2a2a2;
+    border-radius: 7px;
+    font-size: 13pt;
+    transition: 400ms ease all
+}
+
+.box:focus {
+    border-color: #d86c6c;
+    outline: none;
+}
+
+.txt {
+    color: #7f7f7f;
+    font-size: 15pt;
+    padding-right: 1cm;
+    padding-top: 16pt;
+    text-align: left;
+}
+
+.ok {
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    background-color: #a2a2a2;
+    border: none;
+    transition: 400ms ease all
+}
+
+.ok:hover {
+    background-color: #d86c6c;
+}
+
+.idChk {
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    background-color: #a2a2a2;
+    border: none;
+    transition: 400ms ease all
+}
+
+.idChk:hover {
+    background-color: #d86c6c;
+}
+
+button {
+    text-align: center;
+    width: 190px;
+    height: 60px;
+    color: white;
+    background-color: #d86c6c;
+    border: none;
+    font-size: 13pt;
+}
+
+button:hover {
+    color: #d86c6c;
+    background-color: white;
+    border: 4px solid #d86c6c;
+}

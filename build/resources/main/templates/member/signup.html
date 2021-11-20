@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
+    <link rel="stylesheet" th:href="@{css/join.css}">
+    <link rel="stylesheet" href="../../static/css/join.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+<nav th:replace="fragment/nav"></nav>
+
+<div class="none_center">
+    <h3>회 원 가 입</h3>
+    <hr>
+
+    <div class="div">
+        <form class="form" th:object="${memberDto}" method="post">
+            <table>
+                <tr>
+                    <td class="txt">이름</td>
+                    <td>
+                        <input class="box" type="text" th:field="*{name}" placeholder="이름을 입력하세요">
+                    </td>
+                    <td class="err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"/>
+                </tr>
+
+                <tr>
+                    <td class="txt">학번</td>
+                    <td>
+                        <input class="box" type="text" th:field="*{studentId}" placeholder="학번을 입력하세요">
+                    </td>
+                    <td class="err" th:if="${#fields.hasErrors('studentId')}" th:errors="*{studentId}"/>
+                </tr>
+                <tr>
+                    <input class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="중복확인" />
+                </tr>
+
+                <tr>
+                    <td class="txt">비밀번호</td>
+                    <td>
+                        <input class="box" type="password" th:field="*{password}" placeholder="비밀번호를 입력하세요">
+                    </td>
+                    <td class="err" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+                </tr>
+
+                <tr>
+                    <td class="txt">비밀번호 확인</td>
+                    <td>
+                        <input class="box" type="password" id="passwordCheck" placeholder="비밀번호를 확인하세요">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <span id="chkNotice" size="2"></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="txt">동아리 가입일</td>
+                    <td>
+                        <input class="box" type="date" th:field="*{joinDate}" placeholder="동아리 가입일을 입력하세요">
+                    </td>
+                    <td class="err" th:if="${#fields.hasErrors('joinDate')}" th:errors="*{joinDate}"/>
+                </tr>
+
+                <tr>
+                    <td class="txt">이메일</td>
+                    <td><input class="box" type="email" th:field="*{email}" placeholder=" example@abc.com"></td>
+                    <td class="err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+                </tr>
+
+                <tr>
+                    <td class="txt">전화번호</td>
+                    <td><input class="box" th:field="*{phoneNumber}" type="tel" placeholder=" 010-1234-5678"></td>
+                    <td class="err" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"/>
+                </tr>
+
+            </table>
+            <br><br><br>
+            <button type="submit">가입하기</button>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function fn_idChk(){
+        $.ajax({
+            url : "/idCheck",
+            type : "post",
+            dataType : "json",
+            data : {"studentId" : $("#studentId").val()},
+            success : function(data) {
+                if (data != 0) {
+                    // 중복이면
+                    alert("사용할 수 없는 아이디입니다.");
+                }
+                else {
+                    alert("사용가능한 아이디입니다.");
+                }
+            }
+        });
+    };
+
+    $(function fn_pwChk(){
+        $('#passwordCheck').keyup(function(){
+            $('#userPw').keyup(function(){
+                $('#chkNotice').html('');
+            });
+
+            if($('#password').val() != $('#passwordCheck').val()){
+                $('#chkNotice').html('비밀번호 일치하지 않음<br><br>');
+                $('#chkNotice').attr('color', 'rgba(248,42,42,0.64)');
+            } else{
+                $('#chkNotice').html('비밀번호 일치함<br><br>');
+                $('#chkNotice').attr('color', '#199894b3');
+            }
+        });
+    });
+</script>
+</body>
+</html>

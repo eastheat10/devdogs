@@ -1,0 +1,265 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.menu {
+    height: 130px;
+    background: #d86c6c;
+    text-align: center;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9;
+}
+
+nav ul li {
+    margin-top: 60px;
+    display: inline-block;
+}
+
+nav ul li a {
+    position: relative;
+    color: white;
+    font-size: 16pt;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.nav01, .nav02, .nav03, .nav04 {
+    padding-right: 3%;
+}
+
+.logo {
+    width: 220px;
+    height: 100px;
+    position: absolute;
+    top: 17px;
+    left: 12%;
+}
+
+.img01 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 16%;
+}
+
+.img02 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 12%;
+}
+
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
+}
+
+.menu ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width .3s;
+}
+
+.menu ul li a:hover:after {
+    width: 100%;
+    transition: width .3s;
+} /*처음부터 여기까지가 메뉴바 css*/
+
+.school {
+    display: block;
+    position: absolute;
+    left:50%;
+    transform: translateX(-50%);
+} /* 사진 가운데 정렬
+   * 1. display: block;
+   *    margin: 0px auto;
+   * 2. position: absolute;
+   *    left:50%;
+   *    transform: translateX(-50%);
+   */
+
+.txt {
+    display: inline-block;
+    position: absolute;
+    top: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 36pt;
+    color: white;
+}
+
+.btn {
+    position: absolute;
+    top: 480px;
+    left:50%;
+    transform: translateX(-50%);
+}
+
+button {
+    width: 150px;
+    height: 60px;
+    border: none;
+    color: white;
+    background-color: #d86c6c;
+    border-radius: 2px;
+    transition: ease-out 0.3s;
+    font-size: 18pt;
+    outline: none;
+    position: relative;
+    cursor: pointer;
+    border: white 2px solid;
+}
+
+button:hover {
+    color: #d86c6c;
+    background-color: white;
+}
+
+button:before,button:after {
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:3px;
+    width:0;
+    background: #D86C6C;
+    transition:400ms ease all;
+}
+
+button:after {
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+}
+
+button:hover:before,button:hover:after {
+    width:100%;
+    transition:800ms ease all;
+}
+
+.deco {
+    border-bottom: 5px solid #d86c6c;
+    color: #d86c6c;
+    font-size: 20pt;
+    font-weight: 700;
+}
+
+.hrDeco {
+    border : 2px solid #d86c6c
+}
+
+td, th {
+    padding: 10px;
+    height: 40px;
+    border-bottom: 1px solid #d86c6c;
+}
+
+tbody tr:hover {
+    cursor: pointer;
+    background-color: #EEEEEE;
+}
+
+.title {
+    width: 580px;
+}
+
+/*div div div div {*/
+/*    position: relative;*/
+/*    display : inline-block;*/
+/*    margin : 10px;*/
+/*    width : 402px;*/
+/*    height : 202px;*/
+/*}*/
+
+.photo {
+    border : 3px solid #a2a2a2;
+}
+
+.imageDiv {
+    width: max-content;
+    height: 700px;
+}
+
+.noticeDiv {
+    margin-right: 100px;
+    float: left;
+    width: 30%;
+}
+
+.noticeDiv table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.linkDiv {
+    /*margin-left: 100px;*/
+    float: left;
+    width: 30%;
+}
+
+.con{
+    display: flex;
+    justify-content: center;
+}
+
+.foot_hr {
+    border: 1px solid #a2a2a2;
+}
+
+.floor {
+    position: absolute;
+    width: 100%;
+    margin-top: 150px;
+}
+
+body {
+    padding-top: 130px;
+    padding-bottom: 100px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    margin-top: 10px;
+    height: 70px;
+}
+
+footer p {
+    margin-left: 8%;
+    color: #7f7f7f;
+}
+
+.linkDiv img {
+    display: inline;
+    width: 40%;
+    height: 40%;
+    float: left;
+    margin: 1em;
+}

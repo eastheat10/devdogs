@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
+
+    <link rel="stylesheet" href="../../static/css/write.css">
+    <link th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/write.css}">
+</head>
+<body>
+<nav th:replace="fragment/nav"></nav>
+
+<form class="form" th:object="${postDto}" method="post">
+    <div class="middle">
+        <h3>글 쓰 기</h3>
+        <select th:name="postCategoryId" class="write-select">
+            <option value="0">카테고리를 선택해주세요.</option>
+            <option th:each="category : ${categoryList}"
+                    th:value="${category.id}"
+                    th:text="${category.koName}"
+                    th:selected="${category.koName} == ${postDto.postCategoryKoName}"></option>
+        </select>
+        <input class="write-title" th:field="*{title}" width="150" maxlength="200" placeholder="제목을 입력하세요.">
+        <textarea class="write-content" th:field="*{content}" cols="130" rows="15" placeholder="내용을 입력하세요."></textarea>
+        <!--<tr><td class="file">첨부파일</td><td>&nbsp;<input type="file" value="첨부파일"></td></tr>-->
+    </div>
+    <div class="middle">
+        <input class="button" type="submit" value="저장">
+        <input class="button" type="button" value="취소" OnClick="javascript:history.back(-1)">
+    </div>
+</form>
+
+<footer th:replace="fragment/footer"></footer>
+
+<script th:src="@{/js/write.js}"></script>
+<script src="../../js/write.js"></script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+.menu {
+    height: 130px;
+    background: #d86c6c;
+    text-align: center;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9;
+}
+
+body {
+    padding-top: 130px;
+    padding-bottom: 100px;
+}
+
+nav ul li {
+    margin-top: 60px;
+    display: inline-block;
+}
+
+nav ul li a {
+    position: relative;
+    color: white;
+    font-size: 16pt;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.nav01, .nav02, .nav03, .nav04 {
+    padding-right: 3%;
+}
+
+.logo {
+    width: 220px;
+    height: 100px;
+    position: absolute;
+    top: 17px;
+    left: 12%;
+}
+
+.img01 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 16%;
+}
+
+.img02 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 12%;
+}
+
+.img03 {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50px;
+    right: 20%;
+}
+
+.menu ul li a::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width .3s;
+}
+
+.menu ul li a:hover:after {
+    width: 100%;
+    transition: width .3s;
+}
+
+/*처음부터 여기까지가 메뉴바 css*/
+
+.div {
+    text-align: center;
+}
+
+/*화면 크기에 따라 표 움직임*/
+
+h3 {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 28pt;
+    color: #d86c6c
+}
+
+hr {
+    border: 3px solid #d86c6c
+}
+
+.none_center {
+    margin: 0 auto;
+    width: 90%;
+}
+
+.none_center h3 {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+/*회원가입 오른쪽으로 밀기*/
+
+.none_center hr {
+    margin-left: 8vw;
+    margin-right: 8vw;
+}
+
+/*선 길이 줄이기*/
+
+form {
+    position: absolute;
+    right: 400px;
+    top: 230px;
+}
+
+.searchSelect {
+    height: 27px;
+    border: none;
+    border-bottom: 1px #d86c6c solid;
+}
+
+.searchText {
+    height: 27px;
+    border: none;
+    border-bottom: 1px #d86c6c solid;
+}
+
+.search {
+    margin-top: 20px;
+    padding: 10px;
+    color: white;
+    background-color: #d86c6c;
+    border: none;
+    transition: 400ms ease all;
+    border: 2px solid #d86c6c;
+}
+
+.search:hover {
+    border: 2px solid #d86c6c;
+    color: #d86c6c;
+    background-color: white;
+    cursor: pointer;
+}
+
+.middle {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+table {
+    margin-top: 50px;
+    display: inline-block;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: #d76c6c;
+    color: white;
+    text-align: center;
+    font-size: 15pt;
+}
+
+td, th {
+    padding: 10px;
+    height: 40px;
+    border-bottom: 1px solid #d76c6c;
+}
+
+.number {
+    width: 150px;
+    text-align: center;
+}
+
+.content {
+    text-align: center;
+}
+
+.b_category {
+    width: 100px;
+    text-align: center;
+}
+
+.title {
+    width: 400px;
+    text-align: center;
+}
+
+.writer {
+    width: 200px;
+    text-align: center;
+}
+
+.content {
+    cursor: pointer;
+}
+
+.date {
+    width: 300px;
+    text-align: center;
+}
+
+tbody tr:hover {
+    background-color: #EEEEEE;
+}
+
+button {
+    text-align: center;
+    width: 190px;
+    height: 60px;
+    color: white;
+    background-color: #d86c6c;
+    border: none;
+    font-size: 15pt;
+    margin-top: 15px;
+}
+
+button:hover {
+    color: #d86c6c;
+    background-color: white;
+    border: 4px solid #d86c6c;
+    cursor: pointer;
+}
+
+.foot_hr {
+    border: 1px solid #a2a2a2;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    margin-top: 10px;
+    height: 70px;
+}
+
+footer p {
+    margin-left: 8%;
+    color: #7f7f7f;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+}
+
+.paging {
+    text-align: center;
+    margin: 30px auto 15px auto;
+}
+.paging a {
+    /*
+    display: inline-block 인라인 요소의 특징과 블록 요소의 특징을 모두 갖는다
+    크기를 가질 수 있으며 텍스트 정렬도 적용받는다
+    */
+    display: inline-block;
+
+    font-weight: bold;
+    text-decoration: none;
+    /*padding: 5px 8px;*/
+    padding-top: 7px;
+    width: 30px;
+    height: 25px;
+
+    border: 1px solid #ccc;
+    color: #000;
+    background-color: #FFF;
+}
+/* 현재 페이징에 select 클래스를 적용한다*/
+.paging .selected {
+    color: #fff;
+    background-color: #FFA7A7;
+}
+
+.paging a:hover {
+    cursor: pointer;
+    background-color: #d86c6c;
+    color: #FFF;
+}

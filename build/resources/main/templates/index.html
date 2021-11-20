@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>개발자들</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+
+    <link rel="icon" th:href="@{/favicon.ico}">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}">
+</head>
+<body>
+<nav th:replace="fragment/nav"></nav>
+
+<div class="imageDiv">
+    <img class="school" th:src="@{/image/success.png}">
+    <div class="txt" th:text="'Welcome ' + ${memberDto == null ? 'Guest' : memberDto.getName()}"></div>
+    <div th:if="${memberDto == null}">
+        <a th:href="@{/login}" class="btn">
+            <button type="button">LOGIN</button>
+        </a>
+    </div>
+</div>
+
+<div class="con">
+    <div class="noticeDiv">
+        <a th:href="@{/post/list/notice}">
+            <p class="deco">● 공 지 사 항</p>
+        </a>
+        <!--        <hr class="hrDeco" width="600">-->
+        <table>
+            <tbody>
+            <tr th:each="notice : ${notices}"
+                th:onclick="'location.href=\''+ @{|/post/detail/${notice.id}|} + '\''">
+                <td th:text="${notice.title}">
+                    제목
+                </td>
+                <td th:text="${notice.writer}">
+                    작성자
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="linkDiv">
+        <p class="deco">● 바 로 가 기</p>
+        <!--        <hr class="hrDeco" width="1280">-->
+        <div>
+            <div>
+                <a th:href="@{http://www.skhu.ac.kr/main.aspx}">
+                    <img th:src="@{/image/skhu.png}" alt="학교 홈페이지" class="photo">
+                </a>
+            </div>
+            <div>
+                <a th:href="@{https://forest.skhu.ac.kr/}">
+                    <img th:src="@{/image/sys.png}" alt="종합정보시스템" class="photo">
+                </a>
+            </div>
+            <div>
+                <a th:href="@{http://lms.skhu.ac.kr/ilos/main/main_form.acl}">
+                    <img th:src="@{/image/lms.png}" alt="LMS" class="photo">
+                </a>
+            </div>
+        </div>
+        <div>
+            <div>
+                <a th:href="@{https://www.acmicpc.net/}">
+                    <img th:src="@{/image/baekjoon.png}" alt="백준" class="photo">
+                </a>
+            </div>
+            <div>
+                <a th:href="@{https://fastcampus.co.kr/}">
+                    <img th:src="@{/image/fast_campus.png}" alt="패스트캠퍼스" class="photo">
+                </a>
+            </div>
+            <div>
+                <a th:href="@{http://www.inflearn.com}">
+                    <img th:src="@{/image/inflearn.png}" alt="인프런" class="photo">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:replace="fragment/footer"></footer>
+
+<!--        <script src="main.js"></script>-->
+</body>
+</html>

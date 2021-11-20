@@ -1,0 +1,10 @@
+net/skhu/devdogs/service/PostServiceTest.java
+ net.skhu.devdogs.service.PostServiceTest
+net/skhu/devdogs/DevdogsApplicationTests.java
+ net.skhu.devdogs.DevdogsApplicationTests
+net/skhu/devdogs/repository/PostRepositoryTest.java
+ net.skhu.devdogs.repository.PostRepositoryTest
+net/skhu/devdogs/entity/MemberTest.java
+ net.skhu.devdogs.entity.MemberTest
+net/skhu/devdogs/service/MemberServiceTest.java
+ net.skhu.devdogs.service.MemberServiceTest

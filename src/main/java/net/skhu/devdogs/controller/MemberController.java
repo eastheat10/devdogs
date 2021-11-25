@@ -28,7 +28,7 @@ public class MemberController {
         MemberDto memberDto = (MemberDto) request.getSession().getAttribute("member");
         if (memberDto == null) {
             redirectAttributes.addAttribute("status", true);
-            return "redirect:/login";
+            return "redirect:login";
         } else {
             model.addAttribute("memberDto", memberDto);
         }
@@ -37,7 +37,7 @@ public class MemberController {
             return Integer.parseInt(m1.getStudentId()) - Integer.parseInt(m2.getStudentId());
         });
         model.addAttribute("members", members);
-        return "/member/memberList";
+        return "member/memberList";
     }
 
     @GetMapping("/mypage/{studentId}")
@@ -49,7 +49,7 @@ public class MemberController {
         }
         List<PostDto> postDtoList = postService.findPostByStudentId(studentId);
         model.addAttribute("posts", postDtoList);
-        return "/member/mypage";
+        return "member/mypage";
     }
 
     @PostMapping("/mypage/{studentId}")

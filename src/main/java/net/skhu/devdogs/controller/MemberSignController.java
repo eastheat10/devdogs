@@ -47,7 +47,7 @@ public class MemberSignController {
     public String login(Model model) {
         MemberDto memberDto = new MemberDto();
         model.addAttribute("memberDto", memberDto);
-        return "/member/login";
+        return "member/login";
     }
 
     @PostMapping("/login")

@@ -27,21 +27,21 @@ public class CustomErrorController implements ErrorController {
                 model.addAttribute("code", status.toString());
                 model.addAttribute("msg", httpStatus.getReasonPhrase());
                 model.addAttribute("timestamp", LocalDateTime.now());
-                return "/error/404";
+                return "error/404";
             }
             if (statusCode == HttpStatus.FORBIDDEN.value()) {
-                return "/error/500";
+                return "error/500";
             }
             if (request.getSession().getAttribute("member") == null) {
                 redirectAttributes.addAttribute("status", true);
                 return "redirect:/login";
             }
         }
-        return "/error/etcError";
+        return "error/etcError";
     }
 
     @Override
     public String getErrorPath() {
-        return "/error";
+        return "error";
     }
 }

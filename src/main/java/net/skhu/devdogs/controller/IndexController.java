@@ -26,7 +26,7 @@ public class IndexController {
         }
         List<PostDto> postDtoList = postService.findPostsByPostCategory(1L);
         model.addAttribute("notices", postDtoList.stream().limit(7).collect(Collectors.toList()));
-        return "/index";
+        return "index";
     }
 
 }
